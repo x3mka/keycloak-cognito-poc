@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Обязательно установить lxml из исходников, чтобы использовать системный libxml2
-RUN pip install --no-binary=lxml lxml
+# RUN pip install --no-binary=lxml lxml
 RUN pip install --no-cache-dir setuptools wheel setuptools_scm
 
 WORKDIR /app
