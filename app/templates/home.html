@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SAML Auth Demo</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; }
+        pre { background: #f0f0f0; padding: 10px; border-radius: 4px; }
+        button { padding: 0.5em 1em; font-size: 1em; }
+    </style>
+</head>
+<body>
+    {% if saml_session %}
+        <h2>✅ Logged in</h2>
+        <p><b>NameID:</b> {{ saml_session.name_id or "-" }}</p>
+        <p><b>Email:</b> {{ saml_session.attributes.email[0] if saml_session.attributes.email else "-" }}</p>
+        <p><b>First Name:</b> {{ saml_session.attributes.firstName[0] if saml_session.attributes.firstName else "-" }}</p>
+        <p><b>Last Name:</b> {{ saml_session.attributes.lastName[0] if saml_session.attributes.lastName else "-" }}</p>
+
+        <p><b>All Attributes:</b></p>
+        <pre>{{ saml_session.attributes | tojson(indent=2) }}</pre>
+
+        <form action="/logout" method="get">
+            <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <h2>🔒 Not authenticated</h2>
+        <form action="/login" method="get">
+            <button type="submit">Login</button>
+        </form>
+    {% endif %}
+</body>
+</html>

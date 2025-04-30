@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+python3-saml
+jinja2
+scarlette
+itsdangerous
+python-multipart
