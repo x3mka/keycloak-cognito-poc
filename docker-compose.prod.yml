@@ -9,8 +9,8 @@ services:
       KC_HOSTNAME_STRICT: "false"             # отключить строгую проверку host
       KC_HOSTNAME_STRICT_BACKCHANNEL: "false" # разрешить нестандартный backchannel
 
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HEALTH_ENABLED: "true"
       KC_LOG_LEVEL: info
     healthcheck:
