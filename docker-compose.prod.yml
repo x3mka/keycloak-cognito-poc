@@ -8,7 +8,6 @@ services:
       KC_HTTP_ENABLED: "true"                  # включить HTTP
       KC_HOSTNAME_STRICT: "false"             # отключить строгую проверку host
       KC_HOSTNAME_STRICT_BACKCHANNEL: "false" # разрешить нестандартный backchannel
-      KC_PROXY: "edge"
 
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
