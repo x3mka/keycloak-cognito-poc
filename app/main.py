@@ -33,9 +33,20 @@ async def login(request: Request):
     return HTMLResponse(content=html)
 
 @app.get("/logout")
-async def logout(request: Request):
+def logout(request: Request):
+    req = prepare_flask_request(request)
+    auth = init_saml_auth(req)
+
+    name_id = request.session.get("nameid")
+    session_index = request.session.get("session_index")
+
+    # Очищаем локальную сессию
     request.session.clear()
-    return RedirectResponse("/", status_code=303)
+
+    # Перенаправляем на IdP logout
+    return RedirectResponse(
+        url=auth.logout(name_id=name_id, session_index=session_index)
+    )
 
 @app.api_route("/saml/acs", methods=["POST"])
 async def acs(request: Request):
@@ -65,6 +76,14 @@ async def acs(request: Request):
     request.session["nameid"] = debug_info["name_id"]
     request.session["session_index"] = debug_info["session_index"]
     return RedirectResponse("/", status_code=303)
+
+@app.post("/saml/sls")
+@app.get("/saml/sls")
+def saml_logout_callback(request: Request):
+    req = prepare_flask_request(request)
+    auth = init_saml_auth(req)
+    auth.process_slo()
+    return RedirectResponse(url="/")
 
 @app.get("/saml/metadata")
 async def metadata():

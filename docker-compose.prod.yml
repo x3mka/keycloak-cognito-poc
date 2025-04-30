@@ -7,6 +7,8 @@ services:
       KC_HTTPS_CERTIFICATE_FILE: /etc/x509/https/cert.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/x509/https/key.pem
 
+      KC_METRICS_ENABLED: "true"
+
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HEALTH_ENABLED: "true"
@@ -16,7 +18,7 @@ services:
       interval: 15s
       timeout: 2s
       retries: 15
-    command: ["start", "--http-port", "80", "--https-port", "443", "--optimized"]
+    command: ["start", "--http-port", "80", "--https-port", "443", "--metrics-enabled=true", "--optimized"]
     ports:
       - "80:80"
       - "443:443"

@@ -15,6 +15,10 @@ def get_saml_settings():
                 "url": os.getenv("SAML_SP_ASSERTION_CONSUMER_SERVICE"),
                 "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST",
             },
+            "singleLogoutService": {
+                "url": os.getenv("SAML_SP_SSO_LOGOUT_SERVICE"),
+                "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+            },
             "x509cert": open(f"{saml_path}/cert.pem").read(),
             "privateKey": open(f"{saml_path}/key.pem").read(),
         },
@@ -23,6 +27,10 @@ def get_saml_settings():
             "singleSignOnService": {
                 "url": os.getenv("SAML_IDP_SSO_URL"),
                 "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST",
+            },
+            "singleLogoutService": {
+                "url": os.getenv("SAML_IDP_SLO_URL"),
+                "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
             },
             "x509cert": os.getenv("SAML_IDP_X509_CERT").replace('\\n', '\n'),
         },
