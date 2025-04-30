@@ -4,7 +4,12 @@ services:
     environment:
       KC_HOSTNAME: 18.135.49.118
       KC_HOSTNAME_PORT: 80
-      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+
+      KC_HTTP_ENABLED: "true"                  # включить HTTP
+      KC_HOSTNAME_STRICT: "false"             # отключить строгую проверку host
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "false" # разрешить нестандартный backchannel
+      KC_PROXY: "edge"
+
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HEALTH_ENABLED: "true"
