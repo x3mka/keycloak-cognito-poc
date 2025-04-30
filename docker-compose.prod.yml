@@ -3,11 +3,9 @@ services:
     image: quay.io/keycloak/keycloak:26.2
     environment:
       KC_HOSTNAME: 18.135.49.118
-      KC_HOSTNAME_PORT: 80
 
-      KC_HTTP_ENABLED: "true"                  # включить HTTP
-      KC_HOSTNAME_STRICT: "false"             # отключить строгую проверку host
-      KC_HOSTNAME_STRICT_BACKCHANNEL: "false" # разрешить нестандартный backchannel
+      KC_HTTPS_CERTIFICATE_FILE: /etc/x509/https/cert.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/x509/https/key.pem
 
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
@@ -18,9 +16,12 @@ services:
       interval: 15s
       timeout: 2s
       retries: 15
-    command: ["start-dev", "--http-port", "80"]
+    command: ["start", "--http-port", "80", "--https-port", "443"]
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./keycloak/certs:/etc/x509/https:ro
     networks:
       - kc_poc
 
